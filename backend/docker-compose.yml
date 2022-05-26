@@ -1,0 +1,35 @@
+version: "3.8"
+services:
+  backend:
+    build: .
+    volumes:
+      - ./app:/app
+    ports:
+      - "3001:3000"
+    networks:
+      - freecodecamp
+
+  dev-db:
+    image: postgres:13
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123
+      POSTGRES_DB: nest
+    networks:
+      - freecodecamp
+
+  test-db:
+    image: postgres:13
+    ports:
+      - "5435:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123
+      POSTGRES_DB: nest
+    networks:
+      - freecodecamp
+
+networks:
+  freecodecamp:
