@@ -7,7 +7,11 @@ export class PosService {
 
   async getPOS() {
     let result = await this.salesforce.getQuery(
-      "select Id, PosId__c, Name, BillingCity, BillingPostalCode, BillingState, BillingStreet, PosGeolocation__Latitude__s, PosGeolocation__Longitude__s, InfoText__c, OpeningHours__c, PosGraphic__c, Email__c, Phone, LocationManager__c, AdditionalInfoText__c FROM Account WHERE PosStatus__c = 'open'",
+      'select Id, PosId__c, Name, BillingCity, BillingPostalCode, ' +
+      'BillingState, BillingStreet, PosGeolocation__Latitude__s, ' +
+      'PosGeolocation__Longitude__s, InfoText__c, OpeningHours__c, ' +
+      'PosGraphic__c, Email__c, Phone, LocationManager__c, AdditionalInfoText__c ' +
+      'FROM Account WHERE PosStatus__c = \'open\'',
     );
     let { records } = result;
 
@@ -65,7 +69,7 @@ export class PosService {
       return holidaysByState;
     };
 
-    const getSpecialOpeningDatesByState = async () => {
+    const getSpecialOpeningDates = async () => {
       const specialOpeningDates = {};
       let result = await this.salesforce.getQuery(
         `select Id, PosMarket__c, Date__c, ClosingTime__c, Note__c, OpeningTime__c from SpecialOpeningHour__c`,
@@ -120,7 +124,7 @@ export class PosService {
             ],
         });
       });
-      console.log(warehouseAdresses['128']);
+      // console.log(warehouseAdresses['128']);
       return warehouseAdresses;
     };
 
@@ -131,7 +135,7 @@ export class PosService {
       await getHolidaysByState();
 
     const specialOpeningDates =
-      await getSpecialOpeningDatesByState();
+      await getSpecialOpeningDates();
 
     const warehouseAdressesByPosId =
       await getWarehouseAdressesByPosId();
@@ -140,10 +144,9 @@ export class PosService {
 
     records.map((rec) => {
       let specialStoreDates = [];
-      if (specialOpeningDates.hasOwnProperty(rec['PosId__c'])) { // Todo: wird nicht ausgespielt!
-        console.log("JA");
+      if (specialOpeningDates.hasOwnProperty(rec['Id'])) {
         specialStoreDates = [
-          ...specialOpeningDates[rec['PosId__c']],
+          ...specialOpeningDates[rec['Id']],
         ];
       }
       // console.log(specialOpeningDates['0013O00000vWif4QAC'])  ;

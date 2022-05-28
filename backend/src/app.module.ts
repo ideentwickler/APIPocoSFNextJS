@@ -1,4 +1,4 @@
-import { CacheModule, Module } from '@nestjs/common';
+import { CacheModule, MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
 import { BookmarkModule } from './bookmark/bookmark.module';
@@ -9,6 +9,7 @@ import { SalesforceModule } from './salesforce/salesforce.module';
 import { PosModule } from './pos/pos.module';
 import { StartModule } from './start/start.module';
 import { BrochuresModule } from './brochures/brochures.module';
+import { AppLoggerMiddleware } from './middleware';
 
 @Module({
   imports: [
@@ -34,4 +35,8 @@ import { BrochuresModule } from './brochures/brochures.module';
     BrochuresModule,
   ],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer): void {
+    consumer.apply(AppLoggerMiddleware).forRoutes('*');
+  }
+}
