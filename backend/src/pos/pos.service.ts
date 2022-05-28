@@ -149,7 +149,6 @@ export class PosService {
           ...specialOpeningDates[rec['Id']],
         ];
       }
-      // console.log(specialOpeningDates['0013O00000vWif4QAC'])  ;
 
       let warehouseAdresses = [];
       if (warehouseAdressesByPosId[rec['PosId__c']]) {

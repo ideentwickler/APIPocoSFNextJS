@@ -24,7 +24,7 @@ export class SalesforceService {
           if (err) {
             reject(err);
           }
-          console.log(res);
+          // console.log(res);
           conn.query(query, function (err, res) {
             if (err) {
               reject(err);
@@ -36,5 +36,4 @@ export class SalesforceService {
     });
   }
 
-  // 'SELECT Id, Title__c, Type__c, Subtitle__c, Url__c, Content__c FROM PocoAppPage__c',
 }

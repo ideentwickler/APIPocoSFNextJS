@@ -22,8 +22,7 @@ export class BrochuresController {
 
   @UseInterceptors(CacheInterceptor)
   @Get('/brochures/:id')
-  async getBrochureByPosId(@Param() params) {
-    console.log(params.id);
+  async getBrochureByPosId(@Param() id: number) {
     return this.brochures.getBrochures();
   }
 }
