@@ -81,6 +81,7 @@ export class PosService {
           closesTime: day['ClosingTime__c'],
         });
       });
+      console.log(specialOpeningDates);
       return specialOpeningDates;
     };
 
@@ -139,11 +140,14 @@ export class PosService {
 
     records.map((rec) => {
       let specialStoreDates = [];
-      if (specialOpeningDates[rec['PosId__c']]) {
+      if (specialOpeningDates.hasOwnProperty(rec['PosId__c'])) { // Todo: wird nicht ausgespielt!
+        console.log("JA");
         specialStoreDates = [
           ...specialOpeningDates[rec['PosId__c']],
         ];
       }
+      // console.log(specialOpeningDates['0013O00000vWif4QAC'])  ;
+
       let warehouseAdresses = [];
       if (warehouseAdressesByPosId[rec['PosId__c']]) {
         warehouseAdresses = [
