@@ -16,7 +16,7 @@ export class AboutService {
     );
     let { records } = result;
 
-    const mappedResult = [];
+    const response = [];
     records.map((rec) => {
       let r = {
         id: rec['Id'],
@@ -24,10 +24,10 @@ export class AboutService {
         subtitle: rec['Subtitle__c'],
         url: rec['Url__c'],
       };
-      mappedResult.push(r);
+      response.push(r);
     });
 
-    return mappedResult;
+    return response;
   }
 
   async getLegal() {
@@ -36,7 +36,7 @@ export class AboutService {
     );
     let { records } = result;
 
-    const mappedResult = [];
+    const response = [];
     records.map((rec) => {
       let r = {
         id: rec['Id'],
@@ -44,9 +44,9 @@ export class AboutService {
         subtitle: rec['Subtitle__c'],
         content: rec['Content__c'],
       };
-      mappedResult.push(r);
+      response.push(r);
     });
 
-    return mappedResult;
+    return response;
   }
 }
